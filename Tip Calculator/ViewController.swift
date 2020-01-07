@@ -9,12 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var amountPerPersonStackView: UIStackView!
     @IBOutlet weak var tipPercentageTextField: UITextField!
     @IBOutlet weak var billAmountTextField: UITextField!
     @IBOutlet weak var billAmountStackView: UIStackView!
     @IBOutlet weak var tipPercentageStackView: UIStackView!
     @IBOutlet weak var splitLabel: UILabel!
+    
     @IBAction func sliderAction(_ sender: UISlider) {
         
         let charArr = splitLabel.text?.split(separator: " ")
@@ -36,12 +38,20 @@ class ViewController: UIViewController {
         inputView.layer.addSublayer(bottomLine)
     }
     
+    func addUnderlineOrange(inputView: UIStackView) {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: inputView.frame.height - 1, width: inputView.frame.width, height: 1.0)
+        bottomLine.backgroundColor = UIColor(red: 1.000, green: 0.584, blue: 0.000, alpha: 1.0).cgColor
+        inputView.layer.addSublayer(bottomLine)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // add underline for each stack view
         addUnderline(inputView: billAmountStackView)
         addUnderline(inputView: tipPercentageStackView)
+        addUnderlineOrange(inputView: amountPerPersonStackView)
         
         
     }

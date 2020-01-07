@@ -99,17 +99,58 @@
                                 <color key="textColor" red="0.54117647059999996" green="0.94901960780000005" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="IP3-ei-0Jn">
+                                <rect key="frame" x="0.0" y="537" width="414" height="359"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="359" id="tzI-63-Cn6"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="GWL-Gg-Dkq">
+                                <rect key="frame" x="31" y="642" width="347" height="64"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orangeDollarSign" translatesAutoresizingMaskIntoConstraints="NO" id="zbk-Ko-0Ae">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="j2u-fJ-trE"/>
+                                            <constraint firstAttribute="height" constant="64" id="rcv-uF-GbR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jq7-Oq-whu">
+                                        <rect key="frame" x="33" y="0.0" width="314" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="H5o-aQ-jXQ"/>
+                                            <constraint firstAttribute="width" constant="314" id="qvE-Gc-tNs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="45"/>
+                                        <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount Per Person" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALB-We-cj9">
+                                <rect key="frame" x="24" y="714" width="207" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.15294117647058825" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="JwY-Jw-agz" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-309" id="0XB-63-RR5"/>
                             <constraint firstItem="JwY-Jw-agz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-3.5" id="1yg-qS-OHb"/>
+                            <constraint firstItem="IP3-ei-0Jn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4NV-aM-kP2"/>
                             <constraint firstItem="2Uf-GC-BXg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-3.5" id="IYs-fU-7Oc"/>
+                            <constraint firstAttribute="bottom" secondItem="IP3-ei-0Jn" secondAttribute="bottom" id="ZSN-4a-Vsj"/>
                             <constraint firstItem="2Uf-GC-BXg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-179" id="hbD-PM-cDH"/>
+                            <constraint firstItem="GWL-Gg-Dkq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="226" id="hc0-Z9-fSc"/>
+                            <constraint firstItem="IP3-ei-0Jn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="sFL-3F-I2Z"/>
+                            <constraint firstItem="GWL-Gg-Dkq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-2.5" id="xYf-mZ-mnD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="amountPerPersonStackView" destination="GWL-Gg-Dkq" id="Qnm-I0-jw0"/>
                         <outlet property="billAmountStackView" destination="JwY-Jw-agz" id="kTF-8q-SWs"/>
                         <outlet property="billAmountTextField" destination="SFZ-lc-AL3" id="bHm-MB-FYa"/>
                         <outlet property="splitLabel" destination="XRF-uE-ZXj" id="RoL-Y2-oM7"/>
@@ -123,7 +164,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bottom" width="351" height="293"/>
         <image name="dollarSign" width="512" height="512"/>
-        <image name="percentageSign" width="279" height="520"/>
+        <image name="orangeDollarSign" width="512" height="512"/>
+        <image name="percentageSign" width="512" height="512"/>
     </resources>
 </document>
