@@ -10,24 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var tipPercentageTextField: UITextField!
     @IBOutlet weak var billAmountTextField: UITextField!
     @IBOutlet weak var billAmountStackView: UIStackView!
     @IBOutlet weak var tipPercentageStackView: UIStackView!
     @IBOutlet weak var splitLabel: UILabel!
-    @IBOutlet weak var slider: UISlider!
     @IBAction func sliderAction(_ sender: UISlider) {
-        // Uncheck "Continuous Updates" for Events
-        sender.setValue(sender.value.rounded(.down), animated: true)
         
         let charArr = splitLabel.text?.split(separator: " ")
-        
         if (Int(sender.value) == 1) {
-            splitLabel.text = "Split For 1 Person"
+            self.splitLabel.text = "Split For 1 Person"
         }
         else {
             let newText = "\(charArr![0]) \(charArr![1]) \(Int(sender.value)) People"
             
-            splitLabel.text = newText
+            self.splitLabel.text = newText
         }
     }
     
@@ -45,6 +42,13 @@ class ViewController: UIViewController {
         // add underline for each stack view
         addUnderline(inputView: billAmountStackView)
         addUnderline(inputView: tipPercentageStackView)
+        
+        
+    }
+    
+    // dismiss keyboard when tapping anywhere outside
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
 }
