@@ -11,11 +11,17 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var amountPerPersonStackView: UIStackView!
+    @IBOutlet weak var amountPerPersonTextField: UILabel!
     @IBOutlet weak var tipPercentageTextField: UITextField!
     @IBOutlet weak var billAmountTextField: UITextField!
     @IBOutlet weak var billAmountStackView: UIStackView!
     @IBOutlet weak var tipPercentageStackView: UIStackView!
     @IBOutlet weak var splitLabel: UILabel!
+    
+    var billAmount = 0.00;
+    var prevTipAmount = 0.0;
+    var tipPercentage = 0;
+    var totalAmount = 0.00;
     
     @IBAction func sliderAction(_ sender: UISlider) {
         
@@ -53,7 +59,36 @@ class ViewController: UIViewController {
         addUnderline(inputView: tipPercentageStackView)
         addUnderlineOrange(inputView: amountPerPersonStackView)
         
+        billAmountTextField.addTarget(self, action: #selector(billAmountChanged(_:)), for: UIControl.Event.editingChanged)
+        tipPercentageTextField.addTarget(self, action: #selector(tipAmountChanged(_ :)), for: UIControl.Event.editingChanged)
+    }
+    
+    @objc func billAmountChanged(_ textField: UITextField) {
+        print(billAmountTextField.text!)
+    
+        // unwrap the values to use them using if let
+        if let billAmount = Double(billAmountTextField.text!) {
+            totalAmount = billAmount
+            amountPerPersonTextField.text = String(format: "%.3f", totalAmount)
+        }
+    }
+    
+    @objc func tipAmountChanged(_ textField: UITextField) {
+        print("prevTipAmount=", Double(prevTipAmount))
+        print("currentTip=", tipPercentageTextField.text!)
+        totalAmount -= Double(prevTipAmount)
         
+        if let tipAmount = Int(tipPercentageTextField.text!) {
+            totalAmount += (totalAmount * (Double(tipAmount)/100))
+            prevTipAmount = totalAmount * (Double(tipAmount)/100)
+            print("totalAmount=", totalAmount)
+            amountPerPersonTextField.text = String(totalAmount)
+        }
+        else {
+            prevTipAmount = 0.00
+            print("totalAmount=", totalAmount)
+            amountPerPersonTextField.text = String(totalAmount)
+        }
     }
     
     // dismiss keyboard when tapping anywhere outside
