@@ -18,21 +18,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipPercentageStackView: UIStackView!
     @IBOutlet weak var splitLabel: UILabel!
     
-    var billAmount = 0.00;
-    var prevTipAmount = 0.0;
-    var tipPercentage = 0;
-    var totalAmount = 0.00;
+    var billAmount : Double = 0.0;
+    var tipAmount : Double = 0.0;
+    var tipPercentage : Double = 0.0;
+    var totalAmount : Double = 0.0;
+    var splitAmount : Double = 1.0;
+    var tipPercentageSet : Bool = false;
+    var billAmountSet : Bool = false;
     
     @IBAction func sliderAction(_ sender: UISlider) {
+        
+        let step : Float = 1
+        let roundedValue = round(sender.value / step) * step
+        sender.value = roundedValue
+        
+        splitAmount = Double(sender.value)
         
         let charArr = splitLabel.text?.split(separator: " ")
         if (Int(sender.value) == 1) {
             self.splitLabel.text = "Split For 1 Person"
+            amountPerPersonTextField.text = String(format: "%.2f", totalAmount)
         }
         else {
             let newText = "\(charArr![0]) \(charArr![1]) \(Int(sender.value)) People"
             
             self.splitLabel.text = newText
+            
+            let newTotalAmount = totalAmount / Double(sender.value)
+            amountPerPersonTextField.text = String(format: "%.2f", newTotalAmount)
         }
     }
     
@@ -65,27 +78,66 @@ class ViewController: UIViewController {
     
     @objc func billAmountChanged(_ textField: UITextField) {
         print(billAmountTextField.text!)
-    
+//        prevTipAmount = 0.0
+//        tipPercentage = 0
+//        tipPercentageTextField.text = ""
+//        tipPercentageTextField.attributedPlaceholder = NSAttributedString(string: "0")
+
         // unwrap the values to use them using if let
-        if let billAmount = Double(billAmountTextField.text!) {
-            totalAmount = billAmount
-            amountPerPersonTextField.text = String(format: "%.3f", totalAmount)
+        if (tipPercentageSet) {
+            billAmountSet = true
+            if let newBillAmount = Double(billAmountTextField.text!) {
+                billAmount = newBillAmount
+                totalAmount = billAmount + (round(100*(billAmount * (tipPercentage/100)))/100)
+//                print("tipPercentage==", tipPercentage)
+                print("totalAmount===", totalAmount)
+                totalAmount = totalAmount / splitAmount
+                amountPerPersonTextField.text = String(totalAmount)
+            }
+            else {
+//                print("totalAmount=", totalAmount)
+                totalAmount = 0.0
+                amountPerPersonTextField.text = ""
+                amountPerPersonTextField.text = "0.0"
+            }
+        } else {
+            if let billAmount = Double(billAmountTextField.text!) {
+                totalAmount = billAmount
+                amountPerPersonTextField.text = String(totalAmount)
+            }
+            else {
+                amountPerPersonTextField.text = "0.0"
+            }
         }
     }
     
     @objc func tipAmountChanged(_ textField: UITextField) {
-        print("prevTipAmount=", Double(prevTipAmount))
-        print("currentTip=", tipPercentageTextField.text!)
-        totalAmount -= Double(prevTipAmount)
-        
-        if let tipAmount = Int(tipPercentageTextField.text!) {
-            totalAmount += (totalAmount * (Double(tipAmount)/100))
-            prevTipAmount = totalAmount * (Double(tipAmount)/100)
-            print("totalAmount=", totalAmount)
-            amountPerPersonTextField.text = String(totalAmount)
+        tipPercentageSet = true
+//        print("currentTip=", tipPercentageTextField.text!)
+        print("billAmountSet=", billAmountSet)
+        if !billAmountSet {
+            totalAmount -= round(100*tipAmount)/100
         }
         else {
-            prevTipAmount = 0.00
+            billAmountSet = false
+            totalAmount = billAmount
+        }
+        
+        if let newTipPercentage = Double(tipPercentageTextField.text!) {
+            // update the prevTipAmount before adding it to the totalAmount
+            print("tipAmountBEFORE=", tipAmount)
+            print("totalAmountBEFORE=", totalAmount)
+            tipPercentage = newTipPercentage
+            tipAmount = round(100*(totalAmount * (tipPercentage / 100)))/100
+            totalAmount += round(100*(totalAmount * (tipPercentage/100)))/100
+            print("tipPercentage=", (tipPercentage / 100))
+            print("tipAmountAFTER=", tipAmount)
+            print("totalAmountAFTER=", totalAmount)
+            totalAmount = totalAmount / splitAmount
+            amountPerPersonTextField.text = String(format: "%.2f", totalAmount)
+        }
+        else {
+            tipAmount = 0.0
             print("totalAmount=", totalAmount)
             amountPerPersonTextField.text = String(totalAmount)
         }
