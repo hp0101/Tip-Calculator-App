@@ -153,8 +153,8 @@
                         <outlet property="amountPerPersonStackView" destination="GWL-Gg-Dkq" id="Qnm-I0-jw0"/>
                         <outlet property="amountPerPersonTextField" destination="jq7-Oq-whu" id="7X5-if-RqR"/>
                         <outlet property="billAmountStackView" destination="JwY-Jw-agz" id="kTF-8q-SWs"/>
-                        <outlet property="billAmountTextField" destination="SFZ-lc-AL3" id="bHm-MB-FYa"/>
-                        <outlet property="splitLabel" destination="XRF-uE-ZXj" id="RoL-Y2-oM7"/>
+                        <outlet property="billAmountTextField" destination="SFZ-lc-AL3" id="tjM-NF-WEp"/>
+                        <outlet property="splitLabel" destination="XRF-uE-ZXj" id="eyc-ZD-Ycd"/>
                         <outlet property="tipPercentageStackView" destination="2Uf-GC-BXg" id="8Vy-UH-jKJ"/>
                         <outlet property="tipPercentageTextField" destination="wwr-Jj-qvZ" id="9OJ-Qx-qQQ"/>
                     </connections>
